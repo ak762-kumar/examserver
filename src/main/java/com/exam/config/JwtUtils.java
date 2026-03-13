@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtils {
 
-    private String SECRET_KEY = "secret";
+    private String SECRET_KEY = "mysecretkeymysecretkeymysecretkey123akumar12456678192491361035931";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -28,6 +28,7 @@ public class JwtUtils {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         // Use the parser builder API available in the current jjwt dependency.
         return Jwts.parser()
