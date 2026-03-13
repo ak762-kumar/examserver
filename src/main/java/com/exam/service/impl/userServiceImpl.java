@@ -11,12 +11,16 @@ import com.exam.repo.RoleRepository;
 import com.exam.repo.UserRepository;
 import com.exam.service.UserService;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Service
 public class userServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @Override
     public User createUser(User user, Set<UserRole> userRoles) throws Exception {
@@ -25,6 +29,8 @@ public class userServiceImpl implements UserService {
             System.out.println("User is already there !!");
             throw new Exception("User already present !!");
         }else{
+            //encode password
+            user.setPassword(this.passwordEncoder.encode(user.getPassword()));
             //creating user
             for(UserRole ur: userRoles){
                 roleRepository.save(ur.getRole());
